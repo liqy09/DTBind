@@ -54,7 +54,7 @@ Note: Typical install requirements time on a "normal" desktop computer is 10 min
         
 ## 3 Usage   
 
-### 3.1 Predict functional binding residues from a protein structure(in PDB format) based on trained deep models
+### 3.1 Predict drug-target binding occurence from a protein structure(predicted structure or experimental structure) based on trained deep models
 We have packaged data extraction: XXX.py, model training: XXX.py, DTBind model: XXX.py, the validation module: metrices.py, and the prediction code: test.py.  
 First, install the environment as described above, and after that, use the code from the prediction command 'prediction code.log' file in the folder:  
 
@@ -65,7 +65,31 @@ First, install the environment as described above, and after that, use the code 
     Command list： 
     --querypath   The path of query structure  
     --filename    The file name of the query structure（we need user to upload its pdb(1ddl_A.pdb) and pssm and hmm file of each chain(1ddl_A.pssm and 1ddl_A.hmm)）  
+
+### 3.2 Predict drug-target binding sites from a protein structure(experimental structure) based on trained deep models
+We have packaged data extraction: XXX.py, model training: XXX.py, DTBind model: XXX.py, the validation module: metrices.py, and the prediction code: test.py.  
+First, install the environment as described above, and after that, use the code from the prediction command 'prediction code.log' file in the folder:  
+
+
+    cd ../DTBind-main  
+    python test.py --querypath ../DTBind-main/example 
   
+    Command list： 
+    --querypath   The path of query structure  
+    --filename    The file name of the query structure（we need user to upload its pdb(1ddl_A.pdb) and pssm and hmm file of each chain(1ddl_A.pssm and 1ddl_A.hmm)）  
+
+### 3.1 Predict drug-target binding affinity from a complex structure based on trained deep models
+We have packaged data extraction: XXX.py, model training: XXX.py, DTBind model: XXX.py, the validation module: metrices.py, and the prediction code: test.py.  
+First, install the environment as described above, and after that, use the code from the prediction command 'prediction code.log' file in the folder:  
+
+
+    cd ../DTBind-main  
+    python test.py --querypath ../DTBind-main/example 
+  
+    Command list： 
+    --querypath   The path of query structure  
+    --filename    The file name of the query structure（we need user to upload its pdb(1ddl_A.pdb) and pssm and hmm file of each chain(1ddl_A.pssm and 1ddl_A.hmm)）  
+	
 ### 3.2  Train a new deep model from scratch
 
 #### 3.2.1 Download the datasets used in DTBind.
