@@ -34,7 +34,7 @@ A virtual environment can be created and (de)activated as follows by using conda
         # deactivate
         $ conda deactivate
 
-Install pytorch 2.0.1 (For more details, please refer to https://pytorch.org/)
+Install pytorch 1.13.1 (For more details, please refer to https://pytorch.org/)
 
         For linux:
         # CUDA 11.6
@@ -68,7 +68,7 @@ If you only plan to train or evaluate DTBind, you only need the core dependencie
 If you intend to rebuild raw datasets or extract geometric/surface features, install the optional preprocessing tools (Reduce, MSMS, PLIP, PyMesh, PyKeOps).
   
 ## 3 Usage   
-
+### 3.1  Predict with Pretrained DTBind Models
 We provide three pretrained DTBind models for the following tasks: predicting drug–target binding occurrence from a protein structure (predicted or experimental), predicting residue-level binding sites from a protein structure (experimental), and predicting binding affinity from a protein–ligand complex structure. The models are stored in:
 
         ../models/occurrence_model.pth
