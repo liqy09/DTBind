@@ -95,10 +95,10 @@ Surface geometry computation:
 
 Feature packaging:
 
-# For full-protein features:
+For full-protein features:
         python 3_surface_feature.py
 
-# For pocket-level features (affinity task):
+For pocket-level features (affinity task):
         python 3_pocket_surface_feature.py
 
 All residue-level surface features are stored in .pkl format.
