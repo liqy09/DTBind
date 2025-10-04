@@ -14,7 +14,6 @@ Data files:
         ../Data/Biosnap/test.csv  
 
 Each file contains: Drug SMILES string, Protein sequence and UniProt ID, Binary binding label (0/1)
-
 Supporting files:
 
         ../Data/Biosnap/biosnap_uniprotid.txt   # Protein UniProt IDs
@@ -76,9 +75,9 @@ Example:
 
 The resulting .h5 files store per-residue embeddings for each protein.
 
-## 4. Protein Surface Feature Extraction (dMaSIF)
+## 4. Protein Surface Feature Extraction (based on dMaSIF)
 
-Protein surface features are extracted following the dMaSIF framework.
+Protein surface features are extracted based on dMaSIF.
 
 For affinity prediction, surface features are extracted from the full protein structure but later mapped to pocket residues.
 
@@ -129,8 +128,7 @@ All scripts are located in:
         $ cd ./data_process/graph_construction
 
 ### (1) Drug Graphs (for occurrence or site prediction)
-
-Two construction options are provided:
+Two construction options are provided. Input requirement: provide either drug SDF files or SMILES strings.
 
 From SMILES
 
@@ -140,22 +138,38 @@ From SDF files
 
         $ python drug_graph.py
 
-### (2) Protein Graphs
+### (2) Protein Graphs (for occurrence or site prediction)
 
 Protein graphs include surface features, pretrained embeddings, and geometric edge features.
 
 Without labels (for occurrence or site prediction)
+Required inputs:
+Protein PDB files
+Surface feature .pkl files (from 4. Protein Surface Feature Extraction)
+Pretrained embedding .h5 files (from ProtTrans)
 
         $ python prepare_no_label.py
 
 With site-level labels
+Required inputs:
+Protein PDB files
+Residue-level binding site labels .txt
+Surface feature .pkl files
+Pretrained embedding .h5 files
 
         $ python protein_graph.py
 
-### (3) Complex Graphs (for affinity prediction)
+### (3)Complex Graphs (for affinity prediction)
 
 Each sample includes:Drug graph, Protein pocket graph, Pocket–ligand heterogeneous graph, Binding affinity label
 
+To construct these graphs, the following inputs are required:
+Protein pocket PDB files
+Ligand SDF files(Consistent with the coordinate system in the protein pdb file)
+Pretrained protein embeddings (.h5 files from ProtTrans)
+Protein surface features (.pkl files)
+Run the construction script:
+
         $ python construct_graph_hetero.py
 
-Now the dataset is ready for model training and evaluation.
+After this, the dataset is ready for model training and evaluation.
