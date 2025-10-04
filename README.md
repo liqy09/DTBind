@@ -23,7 +23,7 @@ This project provides a unified pipeline for accurately predicting drug–target
 
 ### 2.1 System requirements
 For prediction process, you can predict functional binding residues from a protein structure within a few minutes with CPUs only. However, for training a new deep model from scratch, we recommend using a GPU for significantly faster training.
-To use GraphRBF with GPUs, you will need: cuda >= 11.6, cuDNN.
+To use DTBind with GPUs, you will need: cuda >= 11.6, cuDNN.
 ### 2.2 Create an environment
 
 We highly recommend to use a virtual environment for the installation of DTBind and its dependencies.
