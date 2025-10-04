@@ -1,7 +1,7 @@
 # DTBind
 DTBind is a mechanism-driven drug–target interaction model that couples graph neural networks with specialized deep-learning modules to predict binding events, residue-level binding sites, and affinities from molecular graphs.
 This project provides a unified pipeline for accurately predicting drug–target binding, residue-level binding sites, and binding affinities, or for retraining the model on new datasets.
-![](https://github.com/liqy09/DTBind/tree/main/IMG/Overview of DTBind framework.jpg "Overview of GraphRBF")  
+![](https://github.com/liqy09/DTBind/tree/main/IMG/Overview of DTBind framework.png "Overview of DTBind")  
 
 ## 1 Description 
 
