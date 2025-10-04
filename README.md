@@ -87,14 +87,14 @@ The detailed procedures for generating these processed inputs are described in:
 To perform predictions, simply navigate to the corresponding task folder and run the testing script.
 Example commands:
 
-        cd ./binding_occurrence
-        python dti_test.py
+        $ cd ./binding_occurrence
+        $ python dti_test.py
 
-        cd ./binding_site
-        python site_test.py
+        $ cd ./binding_site
+        $ python site_test.py
 
-        cd ./binding_affinity
-        python aff_test.py
+        $ cd ./binding_affinity
+        $ python aff_test.py
 
 ### 3.2  Train a New Model from Scratch
 If you wish to train DTBind on a new dataset, please follow the data preparation steps provided in:
