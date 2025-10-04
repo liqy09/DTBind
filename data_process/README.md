@@ -1,51 +1,46 @@
-🧬 Data Preparation
+# Data Preparation
 
-Data preparation includes dataset partitioning for three prediction tasks and feature extraction.
+This section describes the data preparation process for the three prediction tasks used in **DTBind**, including dataset partitioning, feature extraction, and graph construction.
 
-1. Binding Occurrence Prediction
+---
 
-Data source: BioSnap database
+## 1. Binding Occurrence Prediction
 
-Reference: MolTrans dataset format
+**Data source:** BioSnap database  
+**Reference:** MolTrans dataset format  
 
-Data Files:
+**Data files:**
 
-../Data/Biosnap/train.csv  
-../Data/Biosnap/val.csv  
-../Data/Biosnap/test.csv  
-
+     ../Data/Biosnap/train.csv  
+     ../Data/Biosnap/val.csv  
+     ../Data/Biosnap/test.csv  
 
 Each file contains:
+- Drug SMILES string  
+- Protein sequence and UniProt ID  
+- Binary binding label (0/1)
 
-Drug SMILES string
+  
+**Supporting files:**
+../Data/Biosnap/biosnap_uniprotid.txt # Protein UniProt IDs
+../Data/Biosnap/drug_smiles.tsv # DrugBank IDs and SMILES strings
 
-Protein sequence and UniProt ID
+**Protein structures:**  
+Proteins are downloaded from **AlphaFoldDB** using their UniProt IDs.
 
-Binary binding label (0/1)
-
-Additional resources:
-
-../Data/Biosnap/biosnap_uniprotid.txt    # Protein UniProt IDs
-../Data/Biosnap/drug_smiles.tsv           # DrugBank IDs and SMILES strings
-
-
-Protein structures:
-Proteins are downloaded from AlphaFoldDB using their UniProt IDs.
-
-Example command:
-
+**Example command:**
+```bash
 wget -i ./Data/BioSnap/wget_biosnap.txt -P ./pdb_files/biosnap_pdb
+
 
 2. Binding Site & Binding Affinity Datasets
 (1) PDBBind (v2020)
-
 Download from https://www.pdbbind-plus.org.cn/
 
 Save files in:
 
 ./Data/pdbbind_files/
 ./Data/pdbbind_index/
-
 
 Each complex includes protein and ligand .pdb files (and defined binding pocket).
 
@@ -91,36 +86,29 @@ python extract_prottrans_embedding.py \
 The resulting .h5 files store per-residue embeddings for each protein.
 
 4. Protein Surface Feature Extraction (dMaSIF)
-
-Protein surface features are extracted following the dMaSIF framework.
-
-💡 For affinity prediction, surface features are extracted from the full protein structure but later mapped to pocket residues.
+Protein surface features are extracted following the dMaSIF framework.For affinity prediction, surface features are extracted from the full protein structure but later mapped to pocket residues.
 
 Move to the directory:
 
 cd ./data_process/surface_feature_extraction
 
-
 Then run the following steps:
 
-1️⃣ Surface mesh generation (using MSMS):
+(1).Surface mesh generation (using MSMS):
 
 python 1_extract_msms.py
 
-
-2️⃣ Surface geometry computation:
+(2).Surface geometry computation:
 
 python 2_compute.py
 
-
-3️⃣ Feature packaging:
+(3).Feature packaging:
 
 # For full-protein features:
 python 3_surface_feature.py
 
 # For pocket-level features (affinity task):
 python 3_pocket_surface_feature.py
-
 
 All residue-level surface features are stored in .pkl format.
 
@@ -134,11 +122,7 @@ Example command:
 
 python plipcmd.py -f example_complex.pdb -t --name example_output
 
-
-Output files are stored in:
-
-./Data/plip_result_all_set/
-
+Output files are stored in: ./Data/plip_result_all_set/
 
 Residue-level binding site labels are saved in:
 
