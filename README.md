@@ -8,6 +8,18 @@ This project provides a unified pipeline for accurately predicting drug–target
   Accurate prediction of drug–target molecular recognition is pivotal to early-stage drug discovery, encompassing binding occurrence, binding site localization, and affinity estimation. However, current methods typically model only individual subtasks of molecular recognition, yield fragmented insights, and neglect key mechanistic determinants during model design on which molecular recognition depends. We present DTBind, a unified and mechanism-driven framework that encodes proteins and drugs according to recognition determinants, achieving sequence-driven binding occurrence prediction, structure-guided binding site localization, and complex-level affinity estimation. Across diverse benchmarks, DTBind consistently outperforms state-of-the-art methods in both predictive accuracy and generalization ability. 
   
 ## 2 Installation  
+## Standard alone Software prerequisites
+* [Conda*](https://docs.conda.io/en/latest/miniconda.html) Conda is recommended for environment management.
+* [Python*](https://www.python.org/) 
+* [reduce*](https://github.com/rlabduke/reduce). Add protons to proteins.
+* [MSMS*](https://ccsb.scripps.edu/msms/downloads/) . Compute the surface of proteins.
+## Python packages.
+* [Pymesh*](https://pymesh.readthedocs.io/en/latest/insta llation.html). For mesh of protein management and downsampling.
+* [BioPython*](https://github.com/biopython/biopython). To parse PDB files.
+* [Pytorch*](https://pytorch.org/). Pytorch with GPU version. Use to model, train, and evaluate the actual neural networks.
+* [pykeops*](https://www.kernel-operations.io/keops/index.html) . For computation of all point interactions of a protein surface.
+* [Pytorch-geometric*](https://pytorch-geometric.readthedocs.io/en/latest/index.html) . For geometric neural networks.
+* [scikit-learn*](https://scikit-learn.org/) . For point cloud space searching and model evaluation.
 
 ### 2.1 System requirements
 For prediction process, you can predict functional binding residues from a protein structure within a few minutes with CPUs only. However, for training a new deep model from scratch, we recommend using a GPU for significantly faster training.
@@ -29,6 +41,7 @@ A virtual environment can be created and (de)activated as follows by using conda
 Note: Make sure environment is activated before running each command.
 
 #### 2.3.1 Install requirements
+
 Install pytorch 2.0.1 (For more details, please refer to https://pytorch.org/)
 
         For linux:
@@ -50,6 +63,13 @@ Install other requirements
         $ pip install prettytable
         $ pip install pandas
         $ pip install scikit-learn
+		$ pip install rdkit
+		$ pip install h5py
+		$ conda install openbabel
+		$ pip install plip
+		$ pip install trimesh
+		$ pip install pytorch3d
+		$ pip install msms
 
 Note: Typical install requirements time on a "normal" desktop computer is 10 minutes.
         
