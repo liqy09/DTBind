@@ -1,46 +1,38 @@
 # DTBind
 DTBind is a mechanism-driven drug–target interaction model that couples graph neural networks with specialized deep-learning modules to predict binding events, residue-level binding sites, and affinities from molecular graphs.
 This project provides a unified pipeline for accurately predicting drug–target binding, residue-level binding sites, and binding affinities, or for retraining the model on new datasets.
-![](https://github.com/liqy09/DTBind/tree/main/IMG/DTBind_framework.png "Overview of DTBind") 
 
 ## 1 Description 
 
   Accurate prediction of drug–target molecular recognition is pivotal to early-stage drug discovery, encompassing binding occurrence, binding site localization, and affinity estimation. However, current methods typically model only individual subtasks of molecular recognition, yield fragmented insights, and neglect key mechanistic determinants during model design on which molecular recognition depends. We present DTBind, a unified and mechanism-driven framework that encodes proteins and drugs according to recognition determinants, achieving sequence-driven binding occurrence prediction, structure-guided binding site localization, and complex-level affinity estimation. Across diverse benchmarks, DTBind consistently outperforms state-of-the-art methods in both predictive accuracy and generalization ability. 
   
 ## 2 Installation  
-## Standard alone Software prerequisites
-* [Conda*](https://docs.conda.io/en/latest/miniconda.html) Conda is recommended for environment management.
-* [Python*](https://www.python.org/) 
-* [reduce*](https://github.com/rlabduke/reduce). Add protons to proteins.
-* [MSMS*](https://ccsb.scripps.edu/msms/downloads/) . Compute the surface of proteins.
-## Python packages.
-* [Pymesh*](https://pymesh.readthedocs.io/en/latest/insta llation.html). For mesh of protein management and downsampling.
-* [BioPython*](https://github.com/biopython/biopython). To parse PDB files.
-* [Pytorch*](https://pytorch.org/). Pytorch with GPU version. Use to model, train, and evaluate the actual neural networks.
-* [pykeops*](https://www.kernel-operations.io/keops/index.html) . For computation of all point interactions of a protein surface.
-* [Pytorch-geometric*](https://pytorch-geometric.readthedocs.io/en/latest/index.html) . For geometric neural networks.
-* [scikit-learn*](https://scikit-learn.org/) . For point cloud space searching and model evaluation.
-
 ### 2.1 System requirements
 For prediction process, you can predict functional binding residues from a protein structure within a few minutes with CPUs only. However, for training a new deep model from scratch, we recommend using a GPU for significantly faster training.
-To use DTBind with GPUs, you will need: cuda >= 11.6, cuDNN.
-### 2.2 Create an environment
+DTBind can run on both CPU and GPU.
+For model training, a GPU with CUDA ≥ 11.6 and cuDNN is recommended for efficiency.
+For inference or feature extraction, CPUs are sufficient.
+
+### 2.2 Software Dependencies
+Core Environment
+DTBind requires the following core dependencies for model training and inference:
+* [Conda*](https://docs.conda.io/en/latest/miniconda.html) Conda is recommended for environment management.
+* [Python*](https://www.python.org/) (v3.9.13). Base language.
+* [Pytorch*](https://pytorch.org/) (v1.13.0+cu116). Pytorch with GPU version, deep learning backend.
+* [Pytorch-geometric*](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (v2.6.1). For geometric neural networks.
+* [scikit-learn*](https://scikit-learn.org/) (v1.6.1). For point cloud space searching and model evaluation.
+
+#### Create an environment and Install DTBind dependencies
 
 We highly recommend to use a virtual environment for the installation of DTBind and its dependencies.
-
 A virtual environment can be created and (de)activated as follows by using conda(https://conda.io/docs/):
 
         # create
-        $ conda create -n DTBind_env python=3.8
+        $ conda create -n DTBind_env python=3.9
         # activate
-        $ conda activate GraphRBF
+        $ conda activate DTBind_env
         # deactivate
         $ conda deactivate
-        
-### 2.3 Install DTBind dependencies
-Note: Make sure environment is activated before running each command.
-
-#### 2.3.1 Install requirements
 
 Install pytorch 2.0.1 (For more details, please refer to https://pytorch.org/)
 
@@ -49,110 +41,83 @@ Install pytorch 2.0.1 (For more details, please refer to https://pytorch.org/)
         $ pip install torch==1.13.1+cu116 torchvision==0.14.1+cu116 torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cu116
         # CPU only
         $ pip install torch==1.13.1+cpu torchvision==0.14.1+cpu torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cpu
-Install torch_geometric 2.6.1 (For more details, please refer to https://pytorch-geometric.readthedocs.io/en/latest/install/installation.html)
+		
+Install PyTorch Geometric (for CUDA 11.6):
 
-        $ pip install torch-cluster -f https://data.pyg.org/whl/torch-1.13.0+cu116.whl
-        $ pip install torch-scatter -f https://data.pyg.org/whl/torch-1.13.0+cu116.html
-        $ pip install torch-sparse -f https://data.pyg.org/whl/torch-1.13.0+cu116.html
-        $ pip install torch-cluster -f https://data.pyg.org/whl/torch-1.13.0+cu116.html
-        $ pip install torch_geometric==2.6.1
-Install other requirements
+        $ pip install torch-scatter torch-sparse torch-cluster torch-spline-conv -f https://data.pyg.org/whl/torch-1.13.0+cu116.html
+        $ pip install torch-geometric==2.6.1
 
-        $ pip install torchnet==0.0.4
-        $ pip install tqdm
-        $ pip install prettytable
-        $ pip install pandas
-        $ pip install scikit-learn
-		$ pip install rdkit
-		$ pip install h5py
-		$ conda install openbabel
-		$ pip install plip
-		$ pip install trimesh
-		$ pip install pytorch3d
-		$ pip install msms
+Other core dependencies:
 
-Note: Typical install requirements time on a "normal" desktop computer is 10 minutes.
+        $ pip install torchnet==0.0.4 tqdm prettytable biopython==1.83 pandas scikit-learn rdkit==2024.3.2 h5py
         
+### 2.3 Optional Dependencies (for Data Preprocessing Only)
+
+The following tools and libraries are only required if you plan to rebuild datasets (e.g., extract protein surface features or PLIP interaction labels).
+If you only need training and testing, these can be skipped.
+
+* [PLIP*](https://github.com/pharmai/plip). Compute noncovalent interactions.
+* [reduce*](https://github.com/rlabduke/reduce). Add protons to proteins.
+* [MSMS*](https://ccsb.scripps.edu/msms/downloads/). Protein surface mesh generation.
+* [Pymesh*](https://github.com/PyMesh/PyMesh). Mesh processing for surface features.
+* [BioPython*](https://github.com/biopython/biopython). To parse PDB files.
+* [pykeops*](https://www.kernel-operations.io/keops/index.html). For computation of all point interactions of a protein surface.
+
+Note:
+If you only plan to train or evaluate DTBind, you only need the core dependencies.
+If you intend to rebuild raw datasets or extract geometric/surface features, install the optional preprocessing tools (Reduce, MSMS, PLIP, PyMesh, PyKeOps).
+  
 ## 3 Usage   
 
-### 3.1 Predict drug-target binding occurence from a protein structure(predicted structure or experimental structure) based on trained deep models
-We have packaged data extraction: XXX.py, model training: XXX.py, DTBind model: XXX.py, the validation module: metrices.py, and the prediction code: test.py.  
-First, install the environment as described above, and after that, use the code from the prediction command 'prediction code.log' file in the folder:  
+We provide three pretrained DTBind models for the following tasks: predicting drug–target binding occurrence from a protein structure (predicted or experimental), predicting residue-level binding sites from a protein structure (experimental), and predicting binding affinity from a protein–ligand complex structure. The models are stored in:
 
+        ../models/occurrence_model.pth
+        ../models/site_model.pth
+        ../models/affinity_model.pth
 
-    cd ../DTBind-main  
-    python test.py --querypath ../DTBind-main/example 
-  
-    Command list： 
-    --querypath   The path of query structure  
-    --filename    The file name of the query structure（we need user to upload its pdb(1ddl_A.pdb) and pssm and hmm file of each chain(1ddl_A.pssm and 1ddl_A.hmm)）  
+We provide four sample protein–ligand complexes in the folder:
+        ./sample_test/
 
-### 3.2 Predict drug-target binding sites from a protein structure(experimental structure) based on trained deep models
-We have packaged data extraction: XXX.py, model training: XXX.py, DTBind model: XXX.py, the validation module: metrices.py, and the prediction code: test.py.  
-First, install the environment as described above, and after that, use the code from the prediction command 'prediction code.log' file in the folder:  
+These samples are not included in any of the training datasets and can therefore serve as unbiased examples for all three prediction tasks.
+Each example contains the processed and packaged protein/drug graph files (.pt) or complex graph files(pkl) required for prediction.
+The detailed procedures for generating these processed inputs are described in:
 
+        ../data_process/
 
-    cd ../DTBind-main  
-    python test.py --querypath ../DTBind-main/example 
-  
-    Command list： 
-    --querypath   The path of query structure  
-    --filename    The file name of the query structure（we need user to upload its pdb(1ddl_A.pdb) and pssm and hmm file of each chain(1ddl_A.pssm and 1ddl_A.hmm)）  
+To perform predictions, simply navigate to the corresponding task folder and run the testing script.
+Example commands:
 
-### 3.1 Predict drug-target binding affinity from a complex structure based on trained deep models
-We have packaged data extraction: XXX.py, model training: XXX.py, DTBind model: XXX.py, the validation module: metrices.py, and the prediction code: test.py.  
-First, install the environment as described above, and after that, use the code from the prediction command 'prediction code.log' file in the folder:  
+        cd ./binding_occurrence
+        python dti_test.py
 
+        cd ./binding_site
+        python site_test.py
 
-    cd ../DTBind-main  
-    python test.py --querypath ../DTBind-main/example 
-  
-    Command list： 
-    --querypath   The path of query structure  
-    --filename    The file name of the query structure（we need user to upload its pdb(1ddl_A.pdb) and pssm and hmm file of each chain(1ddl_A.pssm and 1ddl_A.hmm)）  
-	
-### 3.2  Train a new deep model from scratch
+        cd ./binding_affinity
+        python aff_test.py
 
-#### 3.2.1 Download the datasets used in DTBind.
+### 3.2  Train a New Model from Scratch
+If you wish to train DTBind on a new dataset, please follow the data preparation steps provided in:
 
-Donload the PDB files and the feature files (the pretrain feature h5 profiles, surface feature profiles) from http: and store the PDB files in the path of the corresponding data.
+        ../data_process/
 
-Example:
+The complete DTBind dataset can be downloaded from: https://zenodo.org/records/10826801
 
-	The PDB files of XX
+Once your training, validation, and test sets are ready, use the following commands to train each task-specific model:
 
-#### 3.2.2 Generate the training, validation and test data sets from original data sets
-
-    Example:
-        $ cd ../DTBind-main/scripts
-        # demo 1
+        # Binding Occurrence Prediction
+        $ cd ./binding_occurrence
         $ python dti_train.py
-        # demo 2
-        $ python train.py 
+		
+        # Binding Site Prediction
+        $ cd ./binding_site
+        $ python site_train.py
 
-    Output:
-    The data sets are saved in ../Datasets/.
+		# Binding Affinity Prediction
+        $ cd ./binding_affinity
+        $ python aff_train.py
 
-    Note: {featurecode} is the combination of the first letter of {features}.
-    Expected run time for the demo 1 and demo 2 on a "normal" desktop computer are 30 and 40 minutes, respectively.
-
-   
-#### 3.2.3 Train the deep model
-
-    Example:
-        $ cd ../DTBind-main/scripts
-        # demo 1
-        $ python training.py
-        # demo 2
-        $ python training_guassian.py
-
-    Output:
-    The trained model is saved in ../Datasets/.
-    The log file of training details is saved in ../Datasets/.log.
-
-    Note: {starttime} is the time when training.py started be executed.
-    Expected run time for demo 1 and demo 2 on a "normal" desktop computer with a GPU are 30 and 12 hours, respectively.
-
+The trained model checkpoints will be automatically saved in the ../models/ directory.
 
 ### 4 Frequently Asked Questions
 (1) If the script is interrupted by "Segmentation fault (core dumped)" when torch of CUDA version is used, it may be raised because the version of gcc (our version of gcc is 5.5.0) and you can try to set CUDA_VISIBLE_DEVICES to CPU before execute the script to avoid it by:
