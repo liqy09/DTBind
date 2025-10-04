@@ -154,7 +154,6 @@ With site-level labels
 
 Each sample includes:Drug graph, Protein pocket graph, Pocket–ligand heterogeneous graph, Binding affinity label
 
-Run:
         python construct_graph_hetero.py
 
 Now the dataset is ready for model training and evaluation.
