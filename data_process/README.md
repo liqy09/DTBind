@@ -9,15 +9,15 @@ Reference: MolTrans dataset format
 
 Data files:
 
-        ../Data/Biosnap/train.csv  
-        ../Data/Biosnap/val.csv  
-        ../Data/Biosnap/test.csv  
+        ./Data/Biosnap/train.csv  
+        ./Data/Biosnap/val.csv  
+        ./Data/Biosnap/test.csv  
 
 Each file contains: Drug SMILES string, Protein sequence and UniProt ID, Binary binding label (0/1)
 Supporting files:
 
-        ../Data/Biosnap/biosnap_uniprotid.txt   # Protein UniProt IDs
-        ../Data/Biosnap/drug_smiles.tsv         # DrugBank IDs and SMILES strings
+        ./Data/Biosnap/biosnap_uniprotid.txt   # Protein UniProt IDs
+        ./Data/Biosnap/drug_smiles.tsv         # DrugBank IDs and SMILES strings
 
 Protein structures:Proteins are downloaded from AlphaFoldDB using their UniProt IDs.
 
