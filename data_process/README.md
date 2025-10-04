@@ -9,16 +9,16 @@ Reference: MolTrans dataset format
 
 Data files:
 
-../Data/Biosnap/train.csv  
-../Data/Biosnap/val.csv  
-../Data/Biosnap/test.csv  
+        ../Data/Biosnap/train.csv  
+        ../Data/Biosnap/val.csv  
+        ../Data/Biosnap/test.csv  
 
 Each file contains: Drug SMILES string, Protein sequence and UniProt ID, Binary binding label (0/1)
 
 Supporting files:
 
-../Data/Biosnap/biosnap_uniprotid.txt   # Protein UniProt IDs
-../Data/Biosnap/drug_smiles.tsv         # DrugBank IDs and SMILES strings
+        ../Data/Biosnap/biosnap_uniprotid.txt   # Protein UniProt IDs
+        ../Data/Biosnap/drug_smiles.tsv         # DrugBank IDs and SMILES strings
 
 Protein structures:Proteins are downloaded from AlphaFoldDB using their UniProt IDs.
 
@@ -31,8 +31,8 @@ Example command:
 
 Download from: https://www.pdbbind-plus.org.cn/ 
 Save files in:
-./Data/pdbbind_files/
-./Data/pdbbind_index/
+        ./Data/pdbbind_files/
+        ./Data/pdbbind_index/
 
 Each complex includes protein and ligand .pdb files (and defined binding pocket).
 
@@ -114,11 +114,11 @@ Example command:
 Output files:
 Stored in:
 
-./Data/plip_result_all_set/
+        ./Data/plip_result_all_set/
 
 Residue-level binding site labels are saved in:
 
-./Data/PDBBind/bindingsite_dataset/site_labels.txt
+        ./Data/PDBBind/bindingsite_dataset/site_labels.txt
 
 ## 6. Graph Construction for Model Input
 
