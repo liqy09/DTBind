@@ -13,7 +13,7 @@ Data files:
         ./Data/occurrence/val_label.tsv  
         ./Data/occurrence/test_label.tsv  
 
-Each file contains: Drug PubChem ID, Protein ID, Binary binding label (0/1)
+Each file contains: DrugBank ID, Protein ID, Binary binding label (0/1)
 Supporting files:
 
         ./Data/occurrence/biosnap_uniprotid.txt   # Protein UniProt IDs
