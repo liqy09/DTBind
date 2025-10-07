@@ -38,9 +38,9 @@ Install pytorch 1.13.1 (For more details, please refer to https://pytorch.org/)
 
         For linux:
         # CUDA 11.6
-        $ pip install torch==1.13.1+cu116 torchvision==0.14.1+cu116 torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cu116
+        $ pip install torch==1.13.0+cu116 torchvision==0.14.0+cu116 torchaudio==0.13.0 --extra-index-url https://download.pytorch.org/whl/cu116
         # CPU only
-        $ pip install torch==1.13.1+cpu torchvision==0.14.1+cpu torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cpu
+        $ pip install torch==1.13.1+cpu torchvision==0.14.0+cpu torchaudio==0.13.0 --extra-index-url https://download.pytorch.org/whl/cpu
 		
 Install PyTorch Geometric (for CUDA 11.6):
 
@@ -69,55 +69,42 @@ If you intend to rebuild raw datasets or extract geometric/surface features, ins
   
 ## 3 Usage   
 ### 3.1  Predict with Pretrained DTBind Models
-We provide three pretrained DTBind models for the following tasks: predicting drug–target binding occurrence from a protein structure (predicted or experimental), predicting residue-level binding sites from a protein structure (experimental), and predicting binding affinity from a protein–ligand complex structure. The models are stored in:
+We provide pretrained DTBind models for three prediction tasks. Simply run:
 
-        ../models/occurrence_model.pth
-        ../models/site_model.pth
-        ../models/affinity_model.pth
+        $ python DTBind_test.py <task>
 
-We provide four sample protein–ligand complexes in the folder:
-        ./sample_test/
+Replace <task> with one of the following:
 
-These samples are not included in any of the training datasets and can therefore serve as unbiased examples for all three prediction tasks.
-Each example contains the processed and packaged protein/drug graph files (.pt) or complex graph files(pkl) required for prediction.
-The detailed procedures for generating these processed inputs are described in:
+        occurrence - Predict drug-target binding occurrence from predictive protein structures
+        site - Predict residue-level binding sites from experimental protein structures
+        affinity - Predict binding affinity from protein-ligand complex structures
 
-        ../data_process/
+Example:
 
-To perform predictions, simply navigate to the corresponding task folder and run the testing script.
-Example commands:
-
-        $ cd ./binding_occurrence
-        $ python dti_test.py
-
-        $ cd ./binding_site
-        $ python site_test.py
-
-        $ cd ./binding_affinity
-        $ python aff_test.py
+        $ python DTBind_test.py occurrence
 
 ### 3.2  Train a New Model from Scratch
-If you wish to train DTBind on a new dataset, please follow the data preparation steps provided in:
+To train DTBind on your own dataset:
 
-        ../data_process/
+        $ python DTBind_train.py <task>
 
-The complete DTBind dataset can be downloaded from: https://zenodo.org/records/10826801
+Replace <task> with occurrence, site, or affinity to train the corresponding model.
 
-Once your training, validation, and test sets are ready, use the following commands to train each task-specific model:
+Example:
 
-        # Binding Occurrence Prediction
-        $ cd ./binding_occurrence
-        $ python dti_train.py
-		
-        # Binding Site Prediction
-        $ cd ./binding_site
-        $ python site_train.py
+        $ python DTBind_train.py occurrence
 
-		# Binding Affinity Prediction
-        $ cd ./binding_affinity
-        $ python aff_train.py
+### 3.3 Model Details
+Pretrained models are available in ./models/:
 
-The trained model checkpoints will be automatically saved in the ../models/ directory.
+        occurrence_model.pth - Binding occurrence prediction
+        site_model.pth - Binding site prediction
+        affinity_model.pth - Binding affinity prediction
+
+### 3.4 Data Preparation
+
+For detailed data processing procedures, please refer to ./data_process/.
+The complete DTBind dataset can be downloaded from:(https://zenodo.org/records/10826801)
 
 ### 4 Frequently Asked Questions
 (1) If the script is interrupted by "Segmentation fault (core dumped)" when torch of CUDA version is used, it may be raised because the version of gcc (our version of gcc is 5.5.0) and you can try to set CUDA_VISIBLE_DEVICES to CPU before execute the script to avoid it by:
