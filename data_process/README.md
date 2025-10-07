@@ -9,15 +9,15 @@ Reference: MolTrans dataset format
 
 Data files:
 
-        ./Data/Biosnap/train.csv  
-        ./Data/Biosnap/val.csv  
-        ./Data/Biosnap/test.csv  
+        ./Data/occurrence/train_label.tsv 
+        ./Data/occurrence/val_label.tsv  
+        ./Data/occurrence/test_label.tsv  
 
-Each file contains: Drug SMILES string, Protein sequence and UniProt ID, Binary binding label (0/1)
+Each file contains: Drug PubChem ID, Protein ID, Binary binding label (0/1)
 Supporting files:
 
-        ./Data/Biosnap/biosnap_uniprotid.txt   # Protein UniProt IDs
-        ./Data/Biosnap/drug_smiles.tsv         # DrugBank IDs and SMILES strings
+        ./Data/occurrence/biosnap_uniprotid.txt   # Protein UniProt IDs
+        ./Data/occurrence/drug_smiles.tsv         # DrugBank IDs and SMILES strings
 
 Protein structures:Proteins are downloaded from AlphaFoldDB using their UniProt IDs.
 
@@ -34,7 +34,7 @@ Save files in:
         ./Data/pdbbind_files/
         ./Data/pdbbind_index/
 
-Each complex includes protein and ligand .pdb files (and defined binding pocket).
+Each complex includes protein .pdb files and ligand .sdf files (and defined binding pocket).
 
 ### (2) PDB Data
 
@@ -44,26 +44,26 @@ Create folder:
 
 Download protein and ligand PDBs:
 
-        $ wget -i ./Data/PDBBind/pdbbind_wget_complex.txt -P ./pdb_files/complex
-        $ wget -i ./Data/PDBBind/pdbbind_wget_ligand.txt -P ./pdb_files/ligand
+        $ wget -i ./Data/affinity/pdbbind_wget_complex.txt -P ./pdb_files/complex
+        $ wget -i ./Data/affinity/pdbbind_wget_ligand.txt -P ./pdb_files/ligand
 
 ### (3) Dataset Splits
 
 Each task uses predefined train/val/test splits, located at:
 
-        ./Data/PDBBind/bindingsite_dataset/
-        ./Data/PDBBind/affinity_dataset/
+        ./Data/affinity/
+        ./Data/site/
 
 ## 3. Protein Pretrained Embedding Extraction
 
 Protein sequences are extracted as follows:
 
         # Binding Occurrence Prediction
-        ./Data/BioSnap/biosnap_protein_seq.fasta
+        ./Data/occurrence/biosnap_protein_seq.fasta
         # Binding Site Prediction
-        ./Data/PDBBind/bindingsite_dataset/pdbbind_protein.fasta
+        ./Data/site/pdbbind_protein.fasta
         # Binding Affinity Prediction
-        ./Data/PDBBind/affinity_dataset/pdbbind_pocket_seq.fasta
+        ./Data/affinity/pdbbind_pocket_seq.fasta
 
 We use ProtTrans pretrained protein language models (e.g., ProtT5-XL-UniRef50) to generate residue-level embeddings.
 Reference implementation: https://github.com/agemagician/ProtTrans
@@ -120,7 +120,7 @@ Stored in:
 
 Residue-level binding site labels are saved in:
 
-        ./Data/PDBBind/bindingsite_dataset/site_labels.txt
+        ./Data/site/site_labels.txt
 
 ## 6. Graph Construction for Model Input
 
@@ -151,7 +151,7 @@ Pretrained embedding .h5 files (from ProtTrans)
 
         $ python prepare_no_label.py
 
-With site-level labels
+With site-level labels (for training site prediction model)
 Required inputs:
 Protein PDB files
 Residue-level binding site labels .txt
