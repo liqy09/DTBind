@@ -25,7 +25,7 @@ DTBind requires the following core dependencies for model training and inference
 #### Create an environment and Install DTBind dependencies
 
 We highly recommend to use a virtual environment for the installation of DTBind and its dependencies.
-A virtual environment can be created and (de)activated as follows by using conda(https://conda.io/docs/):
+A virtual environment can be created and deactivated as follows by using conda(https://conda.io/docs/):
 
         # create
         $ conda create -n DTBind_env python=3.9
