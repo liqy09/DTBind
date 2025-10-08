@@ -73,9 +73,8 @@ If you intend to rebuild raw datasets or extract geometric/surface features, ins
 ## 3 Usage   
 ### 3.1  Predict with Pretrained DTBind Models
 
-We provide a pretrained DTBind model as a predictor; before using it, you need to preprocess your protein data. For details, please refer to DTBind-main/data_process/README.md.
-
-In addition, we have prepared several preprocessed proteins for your reference and for testing DTBind.
+We provide a pretrained DTBind model as a predictor. And we have prepared several preprocessed test examples in the ./sample_test folder for your reference and for testing DTBind.
+If you want to test your own samples, you need to preprocess the data accordingly.For details, please refer to DTBind-main/data_process/README.md.
 
 Simply run:
 
