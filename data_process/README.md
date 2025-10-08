@@ -1,8 +1,10 @@
-# Data Preparation
+## 0. Data Preparation
 
-The complete DTBind dataset can be downloaded from:(https://zenodo.org/records/10826801).
+The complete DTBind datasets can be downloaded from: https://zenodo.org/records/17283638.
 
-This section describes the data preparation process for the three prediction tasks used in DTBind, including dataset partitioning, feature extraction, and graph construction.
+After extraction, you will obtain a folder — simply rename it to “Data” and place it under the DTBind-main directory.
+
+If you wish to construct your own dataset or perform predictions on new protein–drug pairs, please follow the steps below to complete the data preprocessing. The following section demonstrates the dataset construction and preprocessing workflow used in this study as an example.
 
 ## 1. Binding Occurrence Prediction
 
