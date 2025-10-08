@@ -173,7 +173,7 @@ if __name__ == "__main__":
     class Options:
         def __init__(self):
             self.protein_folder = "../../sample_test/occurrence/protein_graph"
-            self.drug_folder = "../../sample_test/occurrence/drug_graph"
+            self.drug_folder = "../../sample_test/occurrence/ligand_graph"
             self.model_path = "../../models/occurrence_model.pth"
             self.tsv_file = "../../sample_test/occurrence/sample_data.tsv"
             self.log_folder = "../../logs/occurrence"
