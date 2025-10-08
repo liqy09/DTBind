@@ -1,5 +1,7 @@
 # Data Preparation
 
+The complete DTBind dataset can be downloaded from:(https://zenodo.org/records/10826801).
+
 This section describes the data preparation process for the three prediction tasks used in DTBind, including dataset partitioning, feature extraction, and graph construction.
 
 ## 1. Binding Occurrence Prediction
@@ -34,7 +36,7 @@ Save files in:
         ./Data/pdbbind_files/
         ./Data/pdbbind_index/
 
-Each complex includes protein .pdb files and ligand .sdf files (and defined binding pocket).
+Each complex includes protein .pdb files, pocket .pdb files and ligand .sdf files.
 
 ### (2) PDB Data
 
@@ -98,10 +100,10 @@ Surface geometry computation:
 Feature packaging:
 
         # For full-protein features:
-        $ python 3_surface_feature.py
+        $ python 3_all_protein_surface_feature.py
 
         # For pocket-level features (affinity task):
-        $ python 3_pocket_surface_feature.py
+        $ python 3_all_pocket_surface_feature.py
 
 All residue-level surface features are stored in .pkl format.
 
@@ -149,7 +151,7 @@ Protein PDB files
 Surface feature .pkl files (from 4. Protein Surface Feature Extraction)
 Pretrained embedding .h5 files (from ProtTrans)
 
-        $ python prepare_no_label.py
+        $ python protein_graph_no_label.py
 
 With site-level labels (for training site prediction model)
 Required inputs:
