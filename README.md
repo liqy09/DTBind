@@ -51,7 +51,7 @@ Install PyTorch Geometric (for CUDA 11.6):
 
 Other core dependencies:
 
-        $ pip install torchnet==0.0.4 tqdm prettytable biopython==1.83 pandas scikit-learn rdkit==2024.3.2 h5py
+        $ pip install numpy==1.23.4 torchnet==0.0.4 tqdm prettytable biopython==1.83 pandas scikit-learn rdkit==2024.3.2 h5py
 
 Note: Typical install requirements time on a "normal" desktop computer is 10 minutes.
         
