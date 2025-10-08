@@ -121,7 +121,7 @@ def train_affinity(train_data, valid_data, test_data, params, batch_size, n_epoc
             gc.collect()
             torch.cuda.empty_cache()
 
-            torch.save(model.state_dict(), "models/model_affinity.pth")
+            torch.save(model.state_dict(), "../../models/model_affinity.pth")
         else:
             epochs_no_improve += 1
             print(f"No improvement for {epochs_no_improve} epochs.")
