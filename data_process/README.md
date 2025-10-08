@@ -1,4 +1,4 @@
-## 0. Data Preparation
+# Data Preparation
 
 The complete DTBind datasets can be downloaded from: https://zenodo.org/records/17283638.
 
