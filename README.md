@@ -120,8 +120,9 @@ For detailed data processing procedures, please refer to DTBind-main/data_proces
 The complete DTBind dataset can be downloaded from:(https://zenodo.org/records/17283638)
 
 ### 4 Frequently Asked Questions
-(1) If the script is interrupted by "Segmentation fault (core dumped)" when torch of CUDA version is used, it may be raised because the version of gcc (our version of gcc is 5.5.0) and you can try to set CUDA_VISIBLE_DEVICES to CPU before execute the script to avoid it by:
+(1) If the script is interrupted by "Segmentation fault (core dumped)" when torch of CUDA version is used, it may be raised because the version of gcc (our version of gcc is 7.5.0) and you can try to set CUDA_VISIBLE_DEVICES to CPU before execute the script to avoid it by:
         $ export CUDA_VISIBLE_DEVICES="-1"
+		
 (2) If your CUDA version is not 11.6, please refer to the homepages of Pytorch(https://pytorch.org/) and torch_geometric (https://pytorch-geometric.readthedocs.io/en/latest/) to make sure that the installed dependencies match the CUDA version. Otherwise, the environment could be problematic due to the inconsistency.
 
 
