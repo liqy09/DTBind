@@ -10,22 +10,22 @@ class DTBindTrainer:
             'occurrence': {
                 'script': 'dti_train.py',
                 'description': 'Drug-Target Binding Occurrence Prediction Training',
-                'directory': 'occurrence'
+                'directory': 'script/occurrence'
             },
             'site': {
                 'script': 'site_train.py',
                 'description': 'Binding Site Prediction Training',
-                'directory': 'site'
+                'directory': 'script/site'
             },
             'affinity': {
                 'script': 'aff_train.py',
                 'description': 'Binding Affinity Prediction Training',
-                'directory': 'affinity'
+                'directory': 'script/affinity'
             }
         }
 
     def setup_parser(self):
-        """设置命令行参数解析器"""
+
         parser = argparse.ArgumentParser(
             description='DTBind - Unified Training Interface'
         )
@@ -33,7 +33,7 @@ class DTBindTrainer:
         parser.add_argument(
             'task',
             choices=['occurrence', 'site', 'affinity'],
-            help='选择训练任务类型'
+            help='Select the training task type'
         )
 
         return parser
@@ -41,23 +41,23 @@ class DTBindTrainer:
     def run_training(self, task):
         config = self.task_config[task]
 
-        # 检查目录和脚本是否存在
+        # Check if the directory and script exist
         if not os.path.exists(config['directory']):
-            print(f"错误: 目录 '{config['directory']}' 不存在")
+            print(f"Error: Directory '{config['directory']}' does not exist")
             sys.exit(1)
 
         script_path = os.path.join(config['directory'], config['script'])
         if not os.path.exists(script_path):
-            print(f"错误: 脚本文件 '{script_path}' 不存在")
+            print(f"Error: Script file '{script_path}' does not exist")
             sys.exit(1)
 
-        # 切换到对应目录并执行命令
+        # Change to the corresponding directory and execute the command
         original_dir = os.getcwd()
         try:
             os.chdir(config['directory'])
             cmd = ['python', config['script']]
 
-            # 执行训练脚本
+            # Run the training script
             result = subprocess.run(cmd, check=True)
             if result.returncode != 0:
                 sys.exit(result.returncode)
@@ -65,7 +65,7 @@ class DTBindTrainer:
         except subprocess.CalledProcessError as e:
             sys.exit(e.returncode)
         except FileNotFoundError:
-            print(f"错误: 找不到训练脚本 '{config['script']}'")
+            print(f"Error: Training script '{config['script']}' not found")
             sys.exit(1)
         except KeyboardInterrupt:
             sys.exit(1)
