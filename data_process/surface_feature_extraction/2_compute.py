@@ -9,7 +9,7 @@ from subprocess import Popen, PIPE
 
 # 手动设置 bin_path
 bin_path = {
-    'MSMS': '/mnt/storage1/liqy/dMaSIF-master/MSMS/msms.x86_64Linux2.2.6.1'
+    'MSMS': './dMaSIF-master/MSMS/msms.x86_64Linux2.2.6.1'
 }
 
 def read_msms(file_root):
@@ -228,3 +228,4 @@ def process_pdb_files(input_dir, output_dir):
 input_dir = './data_process/mesh/biosnap_pro'
 output_dir = './data_process/mesh/biosnap_pro/ply'
 process_pdb_files(input_dir, output_dir)
+
