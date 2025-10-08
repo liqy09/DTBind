@@ -240,7 +240,7 @@ def load_proteins(txt_file):
 if __name__ == '__main__':
     dir_opts = {
         'protein_list': './Data/dti/pocket_pdbid.txt',  # 存储所有蛋白质 pdbid 的 txt 文件
-        'pocket_residue_file': '.Data/affinity/residue_chain_info.txt',  # 存储口袋残基信息的 txt 文件
+        'pocket_residue_file': '.Data/affinity/pocket_residue_chain_info.txt',  # 存储口袋残基信息的 txt 文件
         'data_output': './data_process/pocket/surface_out',
         'pdb_files': './Data/protein_pdb',
         'ply_files': './data_process/surface/protein/ply',
