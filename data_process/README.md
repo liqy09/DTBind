@@ -11,21 +11,25 @@ Reference: MolTrans dataset format
 
 Data files:
 
-        ./Data/occurrence/train_label.tsv 
-        ./Data/occurrence/val_label.tsv  
-        ./Data/occurrence/test_label.tsv  
+        ./Data/dti/train_label.tsv 
+        ./Data/dti/val_label.tsv  
+        ./Data/dti/test_label.tsv  
 
 Each file contains: DrugBank ID, Protein ID, Binary binding label (0/1)
 Supporting files:
 
-        ./Data/occurrence/biosnap_uniprotid.txt   # Protein UniProt IDs
-        ./Data/occurrence/drug_smiles.tsv         # DrugBank IDs and SMILES strings
+        ./Data/dti/biosnap_uniprotid.txt   # Protein UniProt IDs
+        ./Data/dti/drug_smiles.tsv         # DrugBank IDs and SMILES strings
 
 Protein structures:Proteins are downloaded from AlphaFoldDB using their UniProt IDs.
 
+Create folder:
+
+        $ mkdir -p ./Data/pdb_files/
+
 Example command:
 
-        $ wget -i ./Data/BioSnap/wget_biosnap.txt -P ./pdb_files/biosnap_pdb
+        $ wget -i ./Data/dti/wget_biosnap.txt -P ./pdb_files/biosnap_pdb
 
 ## 2. Binding Site & Binding Affinity Datasets
 ### (1) PDBBind (v2020)
@@ -39,10 +43,6 @@ Save files in:
 Each complex includes protein .pdb files, pocket .pdb files and ligand .sdf files.
 
 ### (2) PDB Data
-
-Create folder:
-
-        $ mkdir -p ./Data/pdb_files/
 
 Download protein and ligand PDBs:
 
@@ -61,7 +61,7 @@ Each task uses predefined train/val/test splits, located at:
 Protein sequences are extracted as follows:
 
         # Binding Occurrence Prediction
-        ./Data/occurrence/biosnap_protein_seq.fasta
+        ./Data/dti/biosnap_protein_seq.fasta
         # Binding Site Prediction
         ./Data/site/pdbbind_protein.fasta
         # Binding Affinity Prediction
@@ -107,6 +107,8 @@ Feature packaging:
 
 All residue-level surface features are stored in .pkl format.
 
+Note: Pocket-level surface features are calculated based on the full protein structure but only the features of the pocket residues are saved.
+
 ## 5. Binding Site Label Extraction via PLIP
 
 We use PLIP (https://github.com/ssalentin/plip/) to calculate non-covalent interactions and identify binding residues.
@@ -130,10 +132,14 @@ All scripts are located in:
 
         $ cd ./data_process/graph_construction
 
+For binding occurrence prediction and binding site prediction, separate molecular graph files for proteins and drugs are required (e.g., protein.pt and drug.pt, such as 1a0q.pt and DM5.pt).  The input files for each sample are saved separately.
+
+For binding affinity prediction, all necessary inputs (protein graphs, drug graphs, heterographs, and labels) for the training, validation, and test sets should be saved as three separate . pkl files.  Each . pkl file contains all samples for the respective set (i.e., one . pkl file for the training set, one for the validation set, and one for the test set).
+
 ### (1) Drug Graphs (for occurrence or site prediction)
 Two construction options are provided. Input requirement: provide either drug SDF files or SMILES strings.
 
-From SMILES
+From SMILES(occurrence prediction)
 
         $ python drug_gra.py
 
@@ -155,6 +161,7 @@ Pretrained embedding .h5 files (from ProtTrans)
 
 With site-level labels (for training site prediction model)
 Required inputs:
+
 Protein PDB files
 Residue-level binding site labels .txt
 Surface feature .pkl files
