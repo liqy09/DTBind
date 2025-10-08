@@ -36,6 +36,8 @@ A virtual environment can be created and deactivated as follows by using conda(h
 
 Install pytorch 1.13.1 (For more details, please refer to https://pytorch.org/)
 
+The first-time compilation and installation may take 10-30 minutes, depending on the device.
+
         For linux:
         # CUDA 11.6
         $ pip install torch==1.13.0+cu116 torchvision==0.14.0+cu116 torchaudio==0.13.0 --extra-index-url https://download.pytorch.org/whl/cu116
@@ -50,6 +52,8 @@ Install PyTorch Geometric (for CUDA 11.6):
 Other core dependencies:
 
         $ pip install torchnet==0.0.4 tqdm prettytable biopython==1.83 pandas scikit-learn rdkit==2024.3.2 h5py
+
+Note: Typical install requirements time on a "normal" desktop computer is 10 minutes.
         
 ### 2.3 Optional Dependencies (for Data Preprocessing Only)
 
@@ -71,7 +75,7 @@ If you intend to rebuild raw datasets or extract geometric/surface features, ins
 ### 3.1  Predict with Pretrained DTBind Models
 We provide pretrained DTBind models for three prediction tasks. Simply run:
 
-        $ python DTBind_test.py <task>
+        $ python DTBind_predict.py <task>
 
 Replace <task> with one of the following:
 
@@ -81,7 +85,11 @@ Replace <task> with one of the following:
 
 Example:
 
-        $ python DTBind_test.py occurrence
+        $ python DTBind_predict.py occurrence
+
+Note:
+
+We provide several preprocessed test examples in the ./sample_test folder for quick testing. If you want to test your own samples, you need to preprocess the data accordingly.
 
 ### 3.2  Train a New Model from Scratch
 To train DTBind on your own dataset:
@@ -94,6 +102,10 @@ Example:
 
         $ python DTBind_train.py occurrence
 
+Note: 
+
+For training, please refer to the Data Preparation for details. We provide preprocessed training data for your convenience. If you want to train on your own dataset, you need to preprocess the data accordingly. More details can be found in the Data Preparation section.
+
 ### 3.3 Model Details
 Pretrained models are available in ./models/:
 
@@ -104,6 +116,7 @@ Pretrained models are available in ./models/:
 ### 3.4 Data Preparation
 
 For detailed data processing procedures, please refer to ./data_process/.
+
 The complete DTBind dataset can be downloaded from:(https://zenodo.org/records/10826801)
 
 ### 4 Frequently Asked Questions
