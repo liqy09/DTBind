@@ -2,7 +2,7 @@
 
 The complete DTBind datasets can be downloaded from: https://zenodo.org/records/17283638.
 
-After extraction, you will obtain a folder — simply rename it to “Data” and place it under the DTBind-main directory.
+After extraction, you will obtain a folder — simply rename it to “Data” and place it under the DTBind-main directory. You can then use DTBind’s training functionality as normal.
 
 If you wish to construct your own dataset or perform predictions on new protein–drug pairs, please follow the steps below to complete the data preprocessing. The following section demonstrates the dataset construction and preprocessing workflow used in this study as an example.
 
