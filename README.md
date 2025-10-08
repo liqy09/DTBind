@@ -117,7 +117,7 @@ Pretrained models are available in DTBind-main/models/:
 
 For detailed data processing procedures, please refer to DTBind-main/data_process/.
 
-The complete DTBind dataset can be downloaded from:(https://zenodo.org/records/10826801)
+The complete DTBind dataset can be downloaded from:(https://zenodo.org/records/17283638)
 
 ### 4 Frequently Asked Questions
 (1) If the script is interrupted by "Segmentation fault (core dumped)" when torch of CUDA version is used, it may be raised because the version of gcc (our version of gcc is 5.5.0) and you can try to set CUDA_VISIBLE_DEVICES to CPU before execute the script to avoid it by:
