@@ -43,7 +43,7 @@ params = {
 }
 
 model = DTIModel(params)
-model.load_state_dict(torch.load("models/affinity_model.pth", map_location=device))
+model.load_state_dict(torch.load("../../models/affinity_model.pth", map_location=device))
 model = model.to(device)
 model.eval()
 
